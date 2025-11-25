@@ -69,10 +69,13 @@ async function main() {
   /// MARK: 打开浏览器
   const browser = await puppeteer.launch({
     headless: true, // 无界面运行
-    executablePath: chromePath,
     args,
     defaultViewport: null
   });
+
+  if (process.platform !== 'linux') {
+    browser.executablePath = chromePath;
+  }
 
   try {
     const page = await browser.newPage();
