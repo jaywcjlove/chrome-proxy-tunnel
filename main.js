@@ -32,8 +32,19 @@ async function main() {
   if (authpwd) {
     console.log('[青果]代理密码已设置:', color.green('********'));
   }
+  /// curl -x HBRMO154:***********:Cchannel-1:T60:A990100@overseas-us.tunnel.qg.net:15561 www.baidu.com
+  let proxyURL = ""
+  if (process.env.PROXY_TUNNEL_AREA && process.env.PROXY_TUNNEL_CHANNEL && process.env.PROXY_TUNNEL_TTL) {
+    proxyURL = [
+      authkey, 
+      authpwd,
+      process.env.PROXY_TUNNEL_CHANNEL,
+      process.env.PROXY_TUNNEL_TTL,
+      process.env.PROXY_TUNNEL_AREA,
+    ].join(":") + "@"
+  }
 
-  const proxy = `${providerDefault || ''}`;
+  const proxy = `${proxyURL}${providerDefault || ''}`;
   console.log('[青果]代理地址:', color.green(proxy));
   const args = [
     // '--incognito',
