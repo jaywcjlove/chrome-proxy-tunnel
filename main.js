@@ -23,8 +23,8 @@ async function main() {
   }
 
   // MARK: 代理认证
-  const authkey = process.env.TUNNEL_AUTHKEY || '';
-  const authpwd = process.env.TUNNEL_AUTHPWD || '';
+  const authkey = process.env.PROXY_TUNNEL_AUTHKEY || '';
+  const authpwd = process.env.PROXY_TUNNEL_AUTHPWD || '';
   if (authkey) {
     console.log('[青果]代理密钥已设置:', color.green(authkey));
   }
@@ -72,17 +72,17 @@ async function main() {
   }
 
   if (process.platform === 'linux') {
-    // 如果系统 /tmp 没有空间（ENOSPC），将 TMPDIR 指向项目内的可写目录并为 Puppeteer 指定 userDataDir
-    const tmpDir = path.join(__dirname, '.chrome-profile-tmp');
-    try {
-      fs.mkdirSync(tmpDir, { recursive: true });
-      // 指定临时目录，Puppeteer/Chromium 会把配置写到 TMPDIR 下
-      process.env.TMPDIR = tmpDir;
-      config.userDataDir = path.join(tmpDir, 'puppeteer_profile');
-    } catch (err) {
-      console.warn('无法创建本地 tmp 目录，继续使用系统 TMPDIR:', err && err.message);
-    }
-    console.log('使用的 TMPDIR ->', color.green(process.env.TMPDIR || '(system default)'));
+    // // 如果系统 /tmp 没有空间（ENOSPC），将 TMPDIR 指向项目内的可写目录并为 Puppeteer 指定 userDataDir
+    // const tmpDir = path.join(__dirname, '.chrome-profile-tmp');
+    // try {
+    //   fs.mkdirSync(tmpDir, { recursive: true });
+    //   // 指定临时目录，Puppeteer/Chromium 会把配置写到 TMPDIR 下
+    //   process.env.TMPDIR = tmpDir;
+    //   config.userDataDir = path.join(tmpDir, 'puppeteer_profile');
+    // } catch (err) {
+    //   console.warn('无法创建本地 tmp 目录，继续使用系统 TMPDIR:', err && err.message);
+    // }
+    // console.log('使用的 TMPDIR ->', color.green(process.env.TMPDIR || '(system default)'));
   }
 
   if (proxy) args.push(`--proxy-server=${proxy}`);

@@ -19,7 +19,7 @@ const puppeteer = require('puppeteer');
     const browser = await puppeteer.launch({
       dumpio: true,
       headless: true,
-      userDataDir: profileDir,
+      // userDataDir: profileDir,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
