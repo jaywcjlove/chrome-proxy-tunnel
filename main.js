@@ -36,11 +36,11 @@ async function main() {
   let proxyURL = ""
   if (process.env.PROXY_TUNNEL_AREA && process.env.PROXY_TUNNEL_CHANNEL && process.env.PROXY_TUNNEL_TTL) {
     proxyURL = [
-      authkey, 
-      authpwd,
+      // authkey, 
+      // authpwd,
       process.env.PROXY_TUNNEL_CHANNEL,
       process.env.PROXY_TUNNEL_TTL,
-      process.env.PROXY_TUNNEL_AREA,
+      // process.env.PROXY_TUNNEL_AREA,
     ].join(":") + "@"
   }
 
