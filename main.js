@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
+const fs = require('fs');
+const path = require('path');
 
 const color = require('chalk').default;
 
@@ -10,6 +12,7 @@ require('dotenv').config()
 const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 async function main() {
+
   // MARK: 隧道代理 URL:PORT
   const providerDefault = process.env.PROXY_TUNNEL;
   if (providerDefault) {
@@ -61,18 +64,29 @@ async function main() {
     // `--disable-blink-features=AutomationControlled`
   ];
 
-  if (process.platform === 'linux') {
+  const config = {
+    headless: true, // 无界面运行
+    args,
+    defaultViewport: null,
+  }
 
+  if (process.platform === 'linux') {
+    // 如果系统 /tmp 没有空间（ENOSPC），将 TMPDIR 指向项目内的可写目录并为 Puppeteer 指定 userDataDir
+    const tmpDir = path.join(__dirname, '.chrome-profile-tmp');
+    try {
+      fs.mkdirSync(tmpDir, { recursive: true });
+      // 指定临时目录，Puppeteer/Chromium 会把配置写到 TMPDIR 下
+      process.env.TMPDIR = tmpDir;
+      config.userDataDir = path.join(tmpDir, 'puppeteer_profile');
+    } catch (err) {
+      console.warn('无法创建本地 tmp 目录，继续使用系统 TMPDIR:', err && err.message);
+    }
+    console.log('使用的 TMPDIR ->', color.green(process.env.TMPDIR || '(system default)'));
   }
 
   if (proxy) args.push(`--proxy-server=${proxy}`);
   /// MARK: 打开浏览器
-  const browser = await puppeteer.launch({
-    headless: true, // 无界面运行
-    args,
-    defaultViewport: null
-  });
-
+  const browser = await puppeteer.launch(config);
   if (process.platform !== 'linux') {
     browser.executablePath = chromePath;
   }

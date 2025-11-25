@@ -2,6 +2,8 @@ package-lock.json
 node_modules/
 debug/itunes_login_**.json
 .chrome-profile/
+chrome-profile-tmp/
+
 
 .DS_Store
 .cache
