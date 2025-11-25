@@ -35,13 +35,13 @@ async function main() {
   /// curl -x HBRMO154:***********:Cchannel-1:T60:A990100@overseas-us.tunnel.qg.net:15561 www.baidu.com
   let proxyURL = ""
   if (process.env.PROXY_TUNNEL_AREA && process.env.PROXY_TUNNEL_CHANNEL && process.env.PROXY_TUNNEL_TTL) {
-    proxyURL = [
-      // authkey, 
-      // authpwd,
-      process.env.PROXY_TUNNEL_CHANNEL,
-      process.env.PROXY_TUNNEL_TTL,
-      // process.env.PROXY_TUNNEL_AREA,
-    ].join(":") + "@"
+    // proxyURL = [
+    //   // authkey, 
+    //   // authpwd,
+    //   process.env.PROXY_TUNNEL_CHANNEL,
+    //   process.env.PROXY_TUNNEL_TTL,
+    //   // process.env.PROXY_TUNNEL_AREA,
+    // ].join(":") + "@"
   }
 
   const proxy = `${proxyURL}${providerDefault || ''}`;
@@ -87,7 +87,7 @@ async function main() {
   /// MARK: 打开浏览器
   const browser = await puppeteer.launch(config);
   if (process.platform !== 'linux') {
-    //browser.executablePath = chromePath;
+    browser.executablePath = chromePath;
   }
 
   try {

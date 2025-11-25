@@ -8,10 +8,13 @@ Puppeteer 青果隧道代理测试
 添加环境变量 `.env` 文件
 
 ```yaml
-PROXY_TUNNEL="overseas-us.tunnel.qg.net:00000"
+# 短效代理获取 IP
+PROXY_PROVIDER="https://share.proxy.qg.net/get?key=xxxxx&num=10&isp=0&distinct=false&format=txt"
+
+PROXY_TUNNEL="overseas-us.tunnel.qg.net:10187"
 # 密钥
-TUNNEL_AUTHKEY="xxxxxxxx"
-TUNNEL_AUTHPWD="******"
+PROXY_TUNNEL_AUTHKEY="C86*****"
+PROXY_TUNNEL_AUTHPWD="********"
 ```
 
 运行脚本示例：
