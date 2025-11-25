@@ -35,31 +35,31 @@ async function main() {
   const proxy = `${providerDefault || ''}`;
   console.log('[青果]代理地址:', color.green(proxy));
   const args = [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-gpu',
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-gpu',
 
-      // // '--incognito',
-      // '--no-sandbox', // 取消沙盒模式（仅限非 root 用户）
-      // '--disable-setuid-sandbox',
-      // '--disable-gpu', // 禁用 GPU 加速
-      // '--disable-dev-shm-usage', // 禁用 /dev/shm 使用
-      // '--disable-accelerated-2d-canvas', // 禁用加速 2D 画布
-      // '--disable-software-rasterizer', // 禁用软件光栅化
-      // '--mute-audio', // 禁用音频输出
-      // // '--disable-background-networking', // 禁用后台网络连接
-      // // '--disable-default-apps', // 禁用默认应用程序
-      // '--disable-hang-monitor', // 禁用挂起监视器
-      // '--disable-popup-blocking', // 禁用弹出窗口阻止
-      // '--disable-translate', // 禁用翻译
-      // '--disable-sync', // 禁用同步
-      // '--hide-scrollbars', // 隐藏滚动条
-      // // '--metrics-recording-only', // 仅记录指标
-      // '--disable-renderer-backgrounding', // 禁用渲染器背景化
-      // '--disable-blink-features=AutomationControlled',
-      // // '--enable-logging=stderr', // 启用日志记录到 stderr
-      // // '--log-level=0' // 设置日志级别为 0（最详细）
+    // // '--incognito',
+    // '--no-sandbox', // 取消沙盒模式（仅限非 root 用户）
+    // '--disable-setuid-sandbox',
+    // '--disable-gpu', // 禁用 GPU 加速
+    // '--disable-dev-shm-usage', // 禁用 /dev/shm 使用
+    // '--disable-accelerated-2d-canvas', // 禁用加速 2D 画布
+    // '--disable-software-rasterizer', // 禁用软件光栅化
+    // '--mute-audio', // 禁用音频输出
+    // // '--disable-background-networking', // 禁用后台网络连接
+    // // '--disable-default-apps', // 禁用默认应用程序
+    // '--disable-hang-monitor', // 禁用挂起监视器
+    // '--disable-popup-blocking', // 禁用弹出窗口阻止
+    // '--disable-translate', // 禁用翻译
+    // '--disable-sync', // 禁用同步
+    // '--hide-scrollbars', // 隐藏滚动条
+    // // '--metrics-recording-only', // 仅记录指标
+    // '--disable-renderer-backgrounding', // 禁用渲染器背景化
+    // '--disable-blink-features=AutomationControlled',
+    // // '--enable-logging=stderr', // 启用日志记录到 stderr
+    // // '--log-level=0' // 设置日志级别为 0（最详细）
 
 
     // `--no-first-run`,
@@ -151,6 +151,11 @@ async function main() {
     }
   } catch (e) {
     console.error('❌ 运行中出错:', e && e.message);
+    if (process.platform === 'linux') {
+      console.error(color.yellow('💡 提示: 在 Linux 上运行 Puppeteer 可能需要安装额外的系统依赖。'));
+      console.error(color.yellow('   请尝试运行项目根目录下的 install_deps.sh 脚本安装依赖: sudo bash install_deps.sh'));
+      console.error(color.yellow('   参考: https://pptr.dev/troubleshooting#chrome-doesnt-launch-on-linux'));
+    }
     if (e && e.stack) console.error(e.stack);
   } finally {
     // 确保浏览器在脚本结束时被正确关闭
