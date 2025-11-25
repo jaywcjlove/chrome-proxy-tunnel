@@ -1,12 +1,13 @@
-const puppeteer = require('puppeteer-extra');
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+import puppeteer from 'puppeteer-extra'
+import StealthPlugin from 'puppeteer-extra-plugin-stealth'
+import color from 'chalk';
+import dotenv from 'dotenv'
+
 puppeteer.use(StealthPlugin());
-const fs = require('fs');
-const path = require('path');
 
-const color = require('chalk').default;
-
-require('dotenv').config()
+dotenv.config({
+  path: `.env.prod`
+})
 
 // macOS Chrome path (adjust if needed)
 const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';

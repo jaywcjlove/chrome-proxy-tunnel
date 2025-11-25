@@ -22,8 +22,12 @@ chrome-profile-tmp/
 *.ipr
 *.iws
 .idea/
-.env.local
+
 .env.development.local
-.env.test.local
 .env.production.local
+.env.test.local
+
+.env.local
+.env.prod
+.env.test
 .env
